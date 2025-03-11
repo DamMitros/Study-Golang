@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"time"
-
-	"golang.org/x/exp/rand"
+	"math/rand/v2"
+	// "golang.org/x/exp/rand"
 )
 
 // GeneratePESEL: geneuje numer PESEL
@@ -26,7 +26,7 @@ func GenerujPESEL(birthDate time.Time, gender string) [11]int {
 	day := birthDate.Day()
 
 	// losowy numer
-	randomSerial := rand.Intn(900) + 100 // 3 cyfrowy losowy numer z zakresu 100-999
+	randomSerial := rand.IntN(900) + 100 // 3 cyfrowy losowy numer z zakresu 100-999
 
 	rr:= year % 100
 
@@ -53,9 +53,9 @@ func GenerujPESEL(birthDate time.Time, gender string) [11]int {
 
 	switch gender{
 		case "M":
-			cyfryPESEL[9] = rand.Intn(5) * 2 + 1
+			cyfryPESEL[9] = rand.IntN(5) * 2 + 1
 		case "K":
-			cyfryPESEL[9] = rand.Intn(5) * 2 
+			cyfryPESEL[9] = rand.IntN(5) * 2 
 	}
 
 	var wagi=[10]int{1, 3, 7, 9, 1, 3, 7, 9, 1, 3}
