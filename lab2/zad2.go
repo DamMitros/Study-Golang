@@ -26,6 +26,8 @@ func main(){
 	
 	howmanycities := 20
 	
+	fmt.Println("Mean population: ", mean_population(cities))
+
 	fmt.Println("Top ", howmanycities, " cities by population")
 	sortByPopulation(cities)
 	printTopCities(cities, howmanycities)
@@ -61,7 +63,7 @@ func ReadCities(filename string) ([]City, error){
 			panic(err)
 		}
 
-		population, _ := strconv.Atoi(record[14]) 
+		population, _ := strconv.Atoi(record[13]) 
 
 		city := City{
 			Name: record[1],
@@ -86,14 +88,19 @@ func sortByPopulation(cities []City){
 
 func sortByName(cities []City){
 	sort.Slice(cities, func(i, j int) bool {
-		if cities[i].Name == cities[j].Name{
-			return cities[i].Population < cities[j].Population
-		}
 		return cities[i].Name < cities[j].Name
 	}) 
 }
 
-func printTopCities(cities []City, howmanycities int){
+func mean_population(cities []City) float64{
+	var sum int
+	for i:=range cities{
+		sum += cities[i].Population
+	}
+	return float64(sum)/float64(len(cities))
+}
+
+func printTopCities(cities []City, howmanycities int){ 
 	for i:=range howmanycities{
 		// fmt.Println(i+1, ":", cities[i])
 		fmt.Println(i+1, ":", cities[i].Name, "(", cities[i].Country, "), population:", cities[i].Population)
